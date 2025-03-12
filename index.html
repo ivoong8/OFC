@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OFC 2025 Countdown</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .countdown {
+            text-align: center;
+            background-color: #1f3b4d;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .countdown h1 {
+            margin: 10px 0;
+            font-size: 2.5em;
+        }
+
+        .countdown p {
+            font-size: 1.5em;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .timer div {
+            margin: 0 15px;
+        }
+
+        .timer span {
+            font-size: 2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown">
+        <h1>Countdown to OFC 2025</h1>
+        <p>Only <span id="countdown-text"></span> until the event!</p>
+        <div class="timer">
+            <div>
+                <span id="days"></span> Days
+            </div>
+            <div>
+                <span id="hours"></span> Hours
+            </div>
+            <div>
+                <span id="minutes"></span> Minutes
+            </div>
+            <div>
+                <span id="seconds"></span> Seconds
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set the date we're counting down to
+        const eventDate = new Date("April 1, 2025 00:00:00").getTime();
+
+        // Update the countdown every 1 second
+        const countdown = setInterval(function() {
+            const now = new Date().getTime();
+            const timeLeft = eventDate - now;
+
+            // Calculate time units
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            // Display the countdown
+            document.getElementById("days").textContent = days;
+            document.getElementById("hours").textContent = hours;
+            document.getElementById("minutes").textContent = minutes;
+            document.getElementById("seconds").textContent = seconds;
+            document.getElementById("countdown-text").textContent = `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds`;
+
+            // If the countdown is finished, display a message
+            if (timeLeft < 0) {
+                clearInterval(countdown);
+                document.getElementById("countdown-text").textContent = "The event has started!";
+                document.querySelector(".timer").style.display = "none";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
